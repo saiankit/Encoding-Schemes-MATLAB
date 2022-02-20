@@ -1,19 +1,15 @@
+% Clear the whole workspace before running
 clc; clear;
-p = [0.4 0.2 0.2 0.1 0.1];
-%p = [0.25 0.5 0.125 0.125];
-code = huffman(p);
-
+% Probability matrix
+p = [0.13 0.10 0.36 0.12 0.14 0.09 0.02 0.04];
+code_words = huffman(p);
 n = length(p);
 h_cap = 0;
 h = 0;
+% Loop to calculate the entropy and average word length
 for i = 1:n
-    rev = 1/(p(i));
-    h = h + (p(i) * log2(rev));
-    h_cap = h_cap + (p(i) * strlength(code{1,i}));
+    h = h + (p(i) * log2(1/(p(i))));
+    h_cap = h_cap + (p(i) * strlength(code_words{1,i}));
 end
-
-eff = h / h_cap;
-
-eff * 100;
-
-fprintf('Efficiency with HUffmann Encoding is : %f %%\n', eff * 100);
+eff = (h / h_cap) * 100;
+fprintf('Efficiency with Huffman Encoding is : %f %%\n', eff);
